@@ -3,9 +3,17 @@ package org.choongang.template;
 import org.choongang.global.constants.Menu;
 import org.choongang.template.main.MainTpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Templates {
     private static Templates instance;
-    private Templates() {}
+    private Map<Menu,Template> tpls;
+
+    private Templates() {
+        tpls = new HashMap<>();
+    }
+
     public static Templates getInstance(){
         if (instance == null){
             instance = new Templates();
@@ -15,14 +23,25 @@ public class Templates {
     }
 
     public void render(Menu menu) {
-        Template tpl = null;
-        switch (menu) {
-            case JOIN :
-            case LOGIN:
-            case MYPAGE:
-            default: tpl = new MainTpl();
+        System.out.println(find(menu).getTpl());
         }
 
-        System.out.println(tpl.getTpl());
+
+
+    public Template find(Menu menu){
+        Template tpl = tpls.get(menu);
+        if (tpl != null){
+            return tpl;
+        }
+
+        switch (menu){
+            case JOIN :
+            case LOGIN:
+            default:tpl = new MainTpl();
+        }
+
+        tpls.put(menu,tpl);
+
+        return tpl;
     }
 }
