@@ -32,7 +32,6 @@ public class MainRouter implements Router {
             case LOGIN: controller = memlocator.find(Menu.LOGIN);break;
             default: controller =new MainController();
         }
-        System.out.println("menu : " +menu);
 
         controller.run(); // common(),show(),prompt()
     }
